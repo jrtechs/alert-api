@@ -9,6 +9,8 @@ target
 
 .metals
 .bloop
+.g8/conf/application.conf
 .g8
 
 *.class
+conf/application.conf

@@ -6,7 +6,7 @@
 # An example controller showing a sample home page
 GET  /  controllers.HomeController.index
 GET  /sendMessage  controllers.HomeController.sendMessage
-
+POST  /sendMessage  controllers.HomeController.sendMessagePost
 
 
 # Map static resources from the /public folder to the /assets URL path

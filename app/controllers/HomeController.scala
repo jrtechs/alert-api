@@ -3,8 +3,12 @@ package controllers
 import javax.inject._
 import play.api._
 import play.api.mvc._
+import play.api.libs.json._
+import play.api.libs.functional.syntax._
 
 import discord.DiscordManager.getDiscord
+import apiMessages.MessageData
+
 
 /**
  * This controller creates an `Action` to handle HTTP requests to the
@@ -30,5 +34,19 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
 
     getDiscord.sendDiscordMessage("world",false)
     Ok("Sending Discord Message")
+  }
+
+  implicit val messageReads: Reads[MessageData] = (
+    (JsPath \ "priority").read[Boolean] and
+    (JsPath \ "message").read[String]
+    )(MessageData.apply _)
+
+
+  def sendMessagePost = Action(parse.json) { request =>
+    val messageJS:JsValue = request.body
+    val message = messageJS.as[MessageData]
+    print(message)
+    getDiscord().sendDiscordMessage(message.message, message.priority)
+    Ok
   }
 }
