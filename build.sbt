@@ -7,7 +7,12 @@ lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
 scalaVersion := "2.13.2"
 
+resolvers += Resolver.JCenterRepository
+
 libraryDependencies += guice
+
+libraryDependencies += "net.katsstuff" %% "ackcord"                 % "0.16.1" //For high level API, includes all the other modules
+
 libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "5.0.0" % Test
 
 // Adds additional packages into Twirl
