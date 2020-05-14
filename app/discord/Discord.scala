@@ -31,6 +31,7 @@ class Discord (token: String, importantChannel: String, notImportantChannel: Str
     var client = None: Option[DiscordClient]
 
     val f : Future[DiscordClient] = clientSettings.createClient()
+    
     f.onComplete
     {
         case Success(cl) => 
@@ -52,7 +53,7 @@ class Discord (token: String, importantChannel: String, notImportantChannel: Str
     }
 
 
-    def sendDiscordMessage(message: String, important: Boolean = true): Unit =
+    def sendDiscordMessage(message: String, important: Boolean = true): Unit = Future
     {
         cache match
         {

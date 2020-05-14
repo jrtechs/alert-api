@@ -5,6 +5,7 @@ import play.api._
 import play.api.mvc._
 import play.api.libs.json._
 import play.api.libs.functional.syntax._
+import scala.concurrent.Future
 
 import discord.DiscordManager.getDiscord
 import apiMessages.MessageData
@@ -43,10 +44,11 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
 
 
   def sendMessagePost = Action(parse.json) { request =>
+
     val messageJS:JsValue = request.body
     val message = messageJS.as[MessageData]
     print(message)
-    getDiscord().sendDiscordMessage(message.message, message.priority)
+    val n: Unit = getDiscord().sendDiscordMessage(message.message, message.priority)
     Ok
   }
 }
