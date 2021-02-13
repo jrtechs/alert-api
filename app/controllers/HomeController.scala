@@ -9,6 +9,7 @@ import scala.concurrent.Future
 
 import discord.DiscordManager.getDiscord
 import apiMessages.MessageData
+import mongo.DBManager.getConnection
 
 
 /**
@@ -49,6 +50,14 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
     val message = messageJS.as[MessageData]
     print(message)
     val n: Unit = getDiscord().sendDiscordMessage(message.message, message.priority)
+    getConnection().insertData(request.body.toString())
+    // println(request.body.toString())
     Ok
+  }
+
+
+  def getMessage = Action { _ =>
+    //getConnection().queryMessages().toString()
+    Ok(getConnection().queryMessages())
   }
 }
